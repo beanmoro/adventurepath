@@ -1,0 +1,672 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gfx/button2.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Line.gd" type="Script" id=3]
+[ext_resource path="res://gfx/button1.png" type="Texture" id=4]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=5]
+[ext_resource path="res://scripts/Path2D.gd" type="Script" id=6]
+[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Extras/Avenixel-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://scripts/GUI.gd" type="Script" id=9]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=10]
+[ext_resource path="res://scripts/GooglePlayGameServicesInit.gd" type="Script" id=11]
+[ext_resource path="res://scripts/ShareService.gd" type="Script" id=13]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 96
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 22
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 24
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+outline_color = Color( 0.956863, 0.956863, 0.956863, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 48
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 36
+font_data = ExtResource( 8 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Line" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+script = ExtResource( 6 )
+
+[node name="Player" parent="Path2D" instance=ExtResource( 1 )]
+max_speed = 5.0
+accel = 0.25
+
+[node name="Vegetation" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 9 )
+
+[node name="StartMenu" type="Control" parent="GUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/StartMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="GUI/StartMenu/VBoxContainer"]
+margin_top = 399.0
+margin_right = 720.0
+margin_bottom = 471.0
+custom_fonts/font = SubResource( 2 )
+text = "Minion Path"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GUI/StartMenu/VBoxContainer"]
+margin_top = 475.0
+margin_right = 720.0
+margin_bottom = 553.0
+custom_fonts/font = SubResource( 3 )
+text = "
+Your Best Distance: XXXXm
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="TextureButton" parent="GUI/StartMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 557.0
+margin_right = 424.0
+margin_bottom = 621.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/StartMenu/VBoxContainer/StartButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Start"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsButton" type="TextureButton" parent="GUI/StartMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 625.0
+margin_right = 424.0
+margin_bottom = 689.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/StartMenu/VBoxContainer/OptionsButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeaderboardButton" type="TextureButton" parent="GUI/StartMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 693.0
+margin_right = 424.0
+margin_bottom = 757.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/StartMenu/VBoxContainer/LeaderboardButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 5 )
+text = "Leaderboard"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="TextureButton" parent="GUI/StartMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 761.0
+margin_right = 424.0
+margin_bottom = 825.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/StartMenu/VBoxContainer/ExitButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Exit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" type="Label" parent="GUI/StartMenu/VBoxContainer"]
+margin_top = 829.0
+margin_right = 720.0
+margin_bottom = 880.0
+custom_fonts/font = SubResource( 3 )
+text = "
+NucleoZ Studios - 2020"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="version" type="Label" parent="GUI/StartMenu"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+margin_right = 61.0
+custom_fonts/font = SubResource( 6 )
+text = "v 0.1.1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gameplay" type="Control" parent="GUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="GUI/Gameplay"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -240.0
+margin_right = 240.0
+margin_bottom = 99.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 7 )
+text = "
+SCORE
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Gameplay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Gameplay/MarginContainer"]
+margin_right = 720.0
+margin_bottom = 1280.0
+
+[node name="GameOverMenu" type="Control" parent="GUI"]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 680.0
+margin_bottom = 1240.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOverLabel" type="Label" parent="GUI/GameOverMenu/VBoxContainer"]
+margin_top = 403.0
+margin_right = 720.0
+margin_bottom = 467.0
+custom_fonts/font = ExtResource( 7 )
+text = "Game Over"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GUI/GameOverMenu/VBoxContainer"]
+margin_top = 471.0
+margin_right = 720.0
+margin_bottom = 672.0
+custom_fonts/font = SubResource( 8 )
+text = "
+Distance: XXXm
+Best Distance: XXXXm
+"
+align = 1
+
+[node name="ShareButton" type="TextureButton" parent="GUI/GameOverMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 676.0
+margin_right = 424.0
+margin_bottom = 740.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/GameOverMenu/VBoxContainer/ShareButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Share"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="TextureButton" parent="GUI/GameOverMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 744.0
+margin_right = 424.0
+margin_bottom = 808.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/GameOverMenu/VBoxContainer/RetryButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Retry"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButton" type="TextureButton" parent="GUI/GameOverMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 812.0
+margin_right = 424.0
+margin_bottom = 876.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/GameOverMenu/VBoxContainer/MainMenuButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Exit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenu" type="Control" parent="GUI"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 680.0
+margin_bottom = 1240.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseLabel" type="Label" parent="GUI/PauseMenu/VBoxContainer"]
+margin_top = 369.0
+margin_right = 720.0
+margin_bottom = 433.0
+custom_fonts/font = ExtResource( 7 )
+text = "Pause"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GUI/PauseMenu/VBoxContainer"]
+margin_top = 437.0
+margin_right = 720.0
+margin_bottom = 638.0
+custom_fonts/font = SubResource( 8 )
+text = "
+Distance: XXXm
+Best Distance: XXXXm
+"
+align = 1
+
+[node name="ResumeButton" type="TextureButton" parent="GUI/PauseMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 642.0
+margin_right = 424.0
+margin_bottom = 706.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/PauseMenu/VBoxContainer/ResumeButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Resume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RetryButton" type="TextureButton" parent="GUI/PauseMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 710.0
+margin_right = 424.0
+margin_bottom = 774.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/PauseMenu/VBoxContainer/RetryButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Retry"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsButton" type="TextureButton" parent="GUI/PauseMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 778.0
+margin_right = 424.0
+margin_bottom = 842.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/PauseMenu/VBoxContainer/OptionsButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButton" type="TextureButton" parent="GUI/PauseMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 846.0
+margin_right = 424.0
+margin_bottom = 910.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/PauseMenu/VBoxContainer/MainMenuButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Exit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsMenu" type="Control" parent="GUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/OptionsMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsLabel" type="Label" parent="GUI/OptionsMenu/VBoxContainer"]
+margin_top = 498.0
+margin_right = 720.0
+margin_bottom = 562.0
+custom_fonts/font = ExtResource( 7 )
+text = "Options"
+align = 1
+valign = 1
+
+[node name="space" type="Label" parent="GUI/OptionsMenu/VBoxContainer"]
+margin_top = 566.0
+margin_right = 720.0
+margin_bottom = 614.0
+custom_fonts/font = SubResource( 8 )
+align = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/OptionsMenu/VBoxContainer"]
+margin_top = 618.0
+margin_right = 720.0
+margin_bottom = 662.0
+
+[node name="CheckButton" type="CheckButton" parent="GUI/OptionsMenu/VBoxContainer/CenterContainer"]
+margin_left = 270.0
+margin_right = 450.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 9 )
+shortcut_in_tooltip = false
+pressed = true
+text = "Sounds"
+flat = true
+align = 1
+
+[node name="space2" type="Label" parent="GUI/OptionsMenu/VBoxContainer"]
+margin_top = 666.0
+margin_right = 720.0
+margin_bottom = 714.0
+custom_fonts/font = SubResource( 8 )
+align = 1
+
+[node name="BackButton" type="TextureButton" parent="GUI/OptionsMenu/VBoxContainer"]
+margin_left = 296.0
+margin_top = 718.0
+margin_right = 424.0
+margin_bottom = 782.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/OptionsMenu/VBoxContainer/BackButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewRecordMenu" type="Control" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/NewRecordMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="GUI/NewRecordMenu/VBoxContainer"]
+margin_top = 455.0
+margin_right = 720.0
+margin_bottom = 551.0
+custom_fonts/font = SubResource( 2 )
+text = "Minion Path"
+align = 1
+
+[node name="NewRecordLabel" type="Label" parent="GUI/NewRecordMenu/VBoxContainer"]
+margin_top = 555.0
+margin_right = 720.0
+margin_bottom = 619.0
+custom_fonts/font = ExtResource( 7 )
+text = "NEW RECORD!"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GUI/NewRecordMenu/VBoxContainer"]
+margin_top = 623.0
+margin_right = 720.0
+margin_bottom = 722.0
+custom_fonts/font = SubResource( 8 )
+text = "
+Distance: XXXm"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="getiton" type="Label" parent="GUI/NewRecordMenu/VBoxContainer"]
+margin_top = 726.0
+margin_right = 720.0
+margin_bottom = 825.0
+custom_fonts/font = SubResource( 8 )
+text = "
+Get it on Google Play"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 10 )
+banner_id = "ca-app-pub-3940256099942544/6300978111"
+interstitial_id = "ca-app-pub-3940256099942544/1033173712"
+rewarded_id = " ca-app-pub-3940256099942544/5224354917"
+
+[node name="GooglePlayServices" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShareService" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="restart" from="GUI" to="." method="_on_GUI_restart"]
+[connection signal="pressed" from="GUI/StartMenu/VBoxContainer/StartButton" to="GUI" method="_on_StartButton_pressed"]
+[connection signal="pressed" from="GUI/StartMenu/VBoxContainer/OptionsButton" to="GUI" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="GUI/StartMenu/VBoxContainer/LeaderboardButton" to="GUI" method="_on_LeaderboardButton_pressed"]
+[connection signal="pressed" from="GUI/StartMenu/VBoxContainer/ExitButton" to="GUI" method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="GUI/GameOverMenu/VBoxContainer/ShareButton" to="GUI" method="_on_ShareButton_pressed"]
+[connection signal="pressed" from="GUI/GameOverMenu/VBoxContainer/RetryButton" to="GUI" method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="GUI/GameOverMenu/VBoxContainer/MainMenuButton" to="GUI" method="_on_MainMenuButton_pressed"]
+[connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/ResumeButton" to="GUI" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/RetryButton" to="GUI" method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/OptionsButton" to="GUI" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/MainMenuButton" to="GUI" method="_on_MainMenuButton_pressed"]
+[connection signal="toggled" from="GUI/OptionsMenu/VBoxContainer/CenterContainer/CheckButton" to="GUI" method="_on_CheckButton_toggled"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/BackButton" to="GUI" method="_on_BackButton_pressed"]
